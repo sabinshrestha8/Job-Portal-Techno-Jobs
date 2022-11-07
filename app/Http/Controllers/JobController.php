@@ -3,84 +3,124 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use App\Http\Requests\StoreJobRequest;
-use App\Http\Requests\UpdateJobRequest;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        $jobs = Job::latest()->paginate(6);
+
+        return view('jobs.index', compact('jobs'))
+            ->with('i', (request()->input('page', 1) - 1) * 6);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('jobs.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreJobRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function store(StoreJobRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedStoreUser = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'company' => 'required|string',
+            'expires_at' => 'required|date'
+        ]);
+
+        if (!$validatedStoreUser) {
+            return redirect(route('jobs.create'))
+                    ->withErrors($validatedStoreUser)->withInput();
+        }
+
+        Job::create($validatedStoreUser);
+
+        session()->flash('msg', 'Job created successfully');
+
+        return redirect(route('jobs.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(Job $job)
+    public function show($id)
     {
-        //
+        $job = Job::find($id);
+        return view('user.show', compact('job'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(Job $job)
+    public function edit($id)
     {
-        //
+        $job = Job::find($id);
+
+        return view('jobs.edit', compact('job'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateJobRequest  $request
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateJobRequest $request, Job $job)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedUpdateUser = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'company' => 'required|string',
+            'expires_at' => 'required|date'
+        ]);
+
+        $job = Job::find($id);
+
+        $job->update($validatedUpdateUser);
+
+        session()->flash('msg', 'Job updated successfully');
+
+        return redirect(route('jobs.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Job  $job
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(Job $job)
+    public function destroy($id)
     {
-        //
+        $job = Job::find($id);
+
+        $job->delete();
+
+        session()->flash('errorMsg', 'Job deleted successfully');
+
+        return redirect(route('jobs.index'));
     }
 }
