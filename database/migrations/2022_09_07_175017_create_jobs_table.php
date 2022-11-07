@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->text('description');
-            $table->string('company_name');
-            $table->date('expire_at');
+            $table->string('company');
+            $table->date('expires_at');
             $table->timestamps();
         });
     }
