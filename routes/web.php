@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,7 @@ use App\Http\Controllers\JobController;
  });
 
 Route::resource('jobs', JobController::class);
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
