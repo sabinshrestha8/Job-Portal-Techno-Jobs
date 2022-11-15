@@ -16,6 +16,11 @@ class JobController extends Controller
     {
         $jobs = Job::latest()->paginate(6);
 
+        if (!request()->is('admin/*')) {
+            return view('list', compact('jobs'))
+                ->with('i', (request()->input('page', 1) - 1) * 6);
+        }
+
         return view('jobs.index', compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * 6);
     }
@@ -40,8 +45,11 @@ class JobController extends Controller
     {
         $validatedStoreUser = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required',
             'company' => 'required|string',
+            'description' => 'required',
+            'salary_range' => 'required|regex:/^[0-9]{3,5}[\s]?[-][\s]?[0-9]{3,5}$/u',
+            'location' => 'required|string',
+            'tags' => 'required|string',
             'expires_at' => 'required|date'
         ]);
 
@@ -50,6 +58,10 @@ class JobController extends Controller
                     ->withErrors($validatedStoreUser)->withInput();
         }
 
+        $tagsArray = explode(',', $validatedStoreUser['tags']);
+
+        $validatedStoreUser['tags'] = $tagsArray;
+        
         Job::create($validatedStoreUser);
 
         session()->flash('msg', 'Job created successfully');

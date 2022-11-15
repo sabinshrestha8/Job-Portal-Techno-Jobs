@@ -13,6 +13,13 @@ class Job extends Model
         'title',
         'company',
         'description',
+        'salary_range',
+        'location',
+        'tags',
         'expires_at'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
     ];
 }
