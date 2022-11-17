@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('location');
             $table->json('tags');
             $table->date('expires_at');
+            $table->json('applications')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
@@ -16,13 +17,16 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::controller(ApplicationController::class)->prefix('/jobs')->group(function() {
+    Route::get('/{id}/apply', 'create')->name('jobs.apply');
+    Route::post('/apply', 'store')->name('jobs.store.apply');
 });
 
-Route::get('/jobs/apply', function () {
-    return view('apply-form');
-});
+Route::get('/', [JobController::class, 'index']);
 
 Route::resource('jobs', JobController::class);
 
@@ -30,4 +34,4 @@ Route::resource('/admin/jobs', JobController::class);
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/jobs', [JobController::class, 'index'])->name('job');
