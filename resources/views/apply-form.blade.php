@@ -118,7 +118,7 @@
           @endif
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 d-flex flex-row-reverse">
           <button type="submit" class="btn btn-primary px-3 rounded-3">
             Apply
           </button>
