@@ -9,7 +9,7 @@
 <div class="container">
     <div class="text-center my-5">
       <h3>Latest Jobs Openings</h3>
-      <p class="lead">Make a difference with your technical skills</p>
+      <p class="lead">Create change with your technical expertise</p>
     </div>
     @foreach ($jobs as $job)
     <div class="card mb-3">
@@ -27,7 +27,29 @@
                 @endforeach
             </div>
             <div class="col-sm-3 text-lg-end">
-              <a href="#" class="btn btn-primary stretched-link">Apply</a>
+              @if (auth()->user())
+                <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary stretched-link">
+                  @php
+                  $applicationUserIds = [];
+                  @endphp
+
+                  @isset($job->applications)
+                      @foreach ($job->applications as $application)
+                        @php
+                          array_push($applicationUserIds, $application['user_id']);
+                        @endphp
+                      @endforeach
+                  @endisset
+
+                  @if(in_array(auth()->user()->id, $applicationUserIds))
+                    {{ 'Re-apply' }}
+                  @else
+                    {{ 'Apply' }}
+                  @endif
+                </a>
+              @else
+                <a href="{{ route('login') }}" class="btn btn-primary stretched-link">Apply</a>
+              @endif
 			        <h5 class="text-danger mt-3 mb-0 small"><span class="text-muted">Expires at: </span>{{ date('d M, Y', strtotime($job->expires_at)) }}</h5>
             </div>
           </div>
