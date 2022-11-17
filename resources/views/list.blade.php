@@ -28,7 +28,7 @@
             </div>
             <div class="col-sm-3 text-lg-end">
               @if (auth()->user())
-                <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary stretched-link">
+                <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary stretched-link" style="width:50%">
                   @php
                   $applicationUserIds = [];
                   @endphp
@@ -48,7 +48,7 @@
                   @endif
                 </a>
               @else
-                <a href="{{ route('login') }}" class="btn btn-primary stretched-link">Apply</a>
+                <a href="{{ route('login') }}" class="btn btn-primary stretched-link" style="width:50%">Apply</a>
               @endif
 			        <h5 class="text-danger mt-3 mb-0 small"><span class="text-muted">Expires at: </span>{{ date('d M, Y', strtotime($job->expires_at)) }}</h5>
             </div>

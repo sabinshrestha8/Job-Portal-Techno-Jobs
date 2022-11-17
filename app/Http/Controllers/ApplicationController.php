@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -44,6 +45,16 @@ class ApplicationController extends Controller
             'job_id' => 'required|string'
         ]);
 
+        $fileTemp = $request->file('cv');
+        if ($fileTemp->isValid()) {
+            $fileExtension = $fileTemp->getClientOriginalExtension();
+            $fileName = Str::random(4). '.'. $fileExtension;
+            $path = $fileTemp->storeAs(
+                'public/documents',
+                $fileName
+            );
+        }
+
         if (!$validatedStoreApplication) {
             return redirect(route('jobs.apply'))
                     ->withErrors($validatedStoreApplication)->withInput();
@@ -55,7 +66,7 @@ class ApplicationController extends Controller
             'email' => $validatedStoreApplication['email'],
             'experience' => $validatedStoreApplication['experience'],
             'message' => $validatedStoreApplication['message'],
-            'cv' => $validatedStoreApplication['cv'],
+            'cv' => $path,
             'remote' => $validatedStoreApplication['remote']
         ];
 
