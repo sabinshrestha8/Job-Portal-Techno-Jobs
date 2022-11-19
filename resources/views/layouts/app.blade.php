@@ -42,11 +42,25 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            {{-- @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link fw-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
+
+                            @isset($route)
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-bold" href="{{ route('admin.login-view') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+                            @endisset
 
                             @if (Route::has('register'))
                                 <li class="nav-item">

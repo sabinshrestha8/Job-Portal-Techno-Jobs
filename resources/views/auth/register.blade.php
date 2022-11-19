@@ -2,13 +2,17 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center py-5">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ $title ?? '' }} {{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    @isset($route)
+                        <form method="POST" action="{{ $route }}">
+                    @else
+                        <form method="POST" action="{{ route('register') }}">
+                    @endisset
                         @csrf
 
                         <div class="row mb-3">
