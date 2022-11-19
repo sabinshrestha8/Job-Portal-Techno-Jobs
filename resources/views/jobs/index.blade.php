@@ -7,8 +7,8 @@
         </div>
         @if(session()->has('msg'))
             <div class="col-md-4 my-0">
-                <div class="alert alert-success alert-dismissible text-center">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div class="alert alert-success alert-dismissible fade show" style="width:70%">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     {{ session()->get('msg') }}
                 </div>
             </div>
@@ -16,8 +16,8 @@
 
         @if(session()->has('errorMsg'))
             <div class="col-md-4 my-0">
-                <div class="alert alert-danger alert-dismissible text-center">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div class="alert alert-danger alert-dismissible fade show" style="width:70%">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     {{ session()->get('errorMsg') }}
                 </div>
             </div>
@@ -60,7 +60,11 @@
                 @endif
                 </tbody>
             </table>
-            {{ $jobs->links() }}
+            @if ($jobs->hasPages())
+                <div class="d-flex justify-content-center">
+                    {{ $jobs->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection

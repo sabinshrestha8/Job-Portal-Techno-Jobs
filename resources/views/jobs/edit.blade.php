@@ -1,11 +1,11 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
         <div class="text-center mt-3 ">
             <h1>Update a Job</h1>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-lg-5 mx-auto">
                 <div class="card mt-1 mx-auto p-1 bg-light">
                     <div class="card-body bg-light">
@@ -14,7 +14,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="controls">
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_title">Title *</label>
@@ -29,7 +29,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_company">Company *</label>
@@ -45,7 +45,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_description">Description *</label>
@@ -59,7 +59,52 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="form_salary_range">Salary (Rs) *</label>
+                                                <input id="form_salary_range" type="text" name="salary_range" class="form-control"
+                                                       placeholder="1000-2000"
+                                                       value="{{ (string) $job->salary_range }}">
+                                                @if($errors->any())
+                                                    <div class="text-danger">
+                                                        {{$errors->first('salary_range')}}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="form_location">Location *</label>
+                                                <input id="form_location" type="text" name="location" class="form-control"
+                                                       placeholder="Kathmandu"
+                                                       value="{{ $job->location }}">
+                                                @if($errors->any())
+                                                    <div class="text-danger">
+                                                        {{$errors->first('location')}}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="form_tags">Tags *</label>
+                                                <input id="form_tags" type="text" name="tags"
+                                                       class="form-control" placeholder="Node js"
+                                                       value="{{ implode(',', $job->tags) }}">
+                                                @if($errors->any())
+                                                    <div class="text-danger">
+                                                        {{$errors->first('tags')}}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_expires_at">Expires at *</label>
@@ -73,10 +118,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
-                                            <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                            "value="Update">
+                                            <input type="submit" class="btn btn-success btn-send py-2 mx-0 btn-block
+                                            "value="Update" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>

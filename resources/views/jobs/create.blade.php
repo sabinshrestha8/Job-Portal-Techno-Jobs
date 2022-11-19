@@ -1,11 +1,11 @@
-@extends('layouts.layout')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
         <div class="text-center mt-3 ">
             <h1>Create a Job</h1>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-lg-5 mx-auto">
                 <div class="card mt-1 mx-auto p-1 bg-light">
                     <div class="card-body bg-light">
@@ -13,7 +13,7 @@
                             <form id="jobs-create-form" method="post" action="{{ route('jobs.store') }}">
                                 @csrf
                                 <div class="controls">
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_title">Title *</label>
@@ -28,7 +28,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_company">Company *</label>
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_description">Description *</label>
@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_salary_range">Salary (Rs) *</label>
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_location">Location *</label>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_tags">Tags *</label>
@@ -103,7 +103,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form_expires_at">Expires at *</label>
@@ -117,10 +117,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-3">
                                         <div class="col-md-12">
-                                            <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                                            "value="Save">
+                                            <input type="submit" class="btn btn-success btn-send py-2 mx-0 btn-block
+                                            "value="Save" style="width: 100%">
                                         </div>
                                     </div>
                                 </div>
