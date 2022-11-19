@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\ApplicationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +32,19 @@ Route::get('/', [JobController::class, 'index']);
 
 Route::resource('jobs', JobController::class);
 
-Route::resource('/admin/jobs', JobController::class);
+Route::resource('/admin/jobs', JobController::class)->middleware('auth:admin');
 
 Auth::routes();
 
 // Route::get('/jobs', [JobController::class, 'index'])->name('job');
+
+
+Route::get('/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login-view');
+Route::post('/admin', [LoginController::class, 'adminLogin'])->name('admin.login');
+
+Route::get('/admin/register', [RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+Route::post('/admin/register', [RegisterController::class,'createAdmin'])->name('admin.register');
+
+// Route::get('/admin/dashboard', function () {
+//     return view('jobs.index');
+// })->middleware('auth:admin');
