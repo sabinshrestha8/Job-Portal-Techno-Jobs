@@ -77,8 +77,8 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Job::find($id);
-        return view('user.show', compact('job'));
+        $job = Job::findOrFail($id);
+        return view('jobs.show', compact('job'));
     }
 
     /**
@@ -89,7 +89,7 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        $job = Job::find($id);
+        $job = Job::findOrFail($id);
 
         return view('jobs.edit', compact('job'));
     }
@@ -110,7 +110,7 @@ class JobController extends Controller
             'expires_at' => 'required|date'
         ]);
 
-        $job = Job::find($id);
+        $job = Job::findOrFail($id);
 
         $job->update($validatedUpdateUser);
 
@@ -127,7 +127,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        $job = Job::find($id);
+        $job = Job::findOrFail($id);
 
         $job->delete();
 
