@@ -17,6 +17,9 @@
 
     <link href="/css/main.css" rel="stylesheet">
 
+    <!-- Font Awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/fontawesome.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -24,7 +27,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center gap-1" href="{{ url('/') }}">
+                <a class="navbar-brand d-flex align-items-center gap-1" href="@isset($route) {{ url('/admin') }} @else  {{ url('/') }}  @endisset">
                     <img src="{{ asset('img/techno-jobs-logo.png') }}" alt="logo" width="25px">
                     <span class="fw-bold">{{ config('app.name', 'Laravel') }}</span>
                 </a>
@@ -42,12 +45,6 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            {{-- @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link fw-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif --}}
-
                             @isset($route)
                                 @if (Route::has('login'))
                                     <li class="nav-item">
@@ -62,11 +59,19 @@
                                 @endif
                             @endisset
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                            @isset($route)
+                                {{-- @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-bold" href="{{ route('admin.register-view') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif --}}
+                            @else
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @endisset
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

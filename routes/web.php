@@ -23,7 +23,7 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return view('welcome');
 // });
 
-Route::controller(ApplicationController::class)->prefix('/jobs')->group(function() {
+Route::controller(ApplicationController::class)->prefix('/jobs')->middleware('auth')->group(function() {
     Route::get('/{id}/apply', 'create')->name('jobs.apply');
     Route::post('/apply', 'store')->name('jobs.store.apply');
 });
@@ -36,15 +36,8 @@ Route::resource('/admin/jobs', JobController::class)->middleware('auth:admin');
 
 Auth::routes();
 
-// Route::get('/jobs', [JobController::class, 'index'])->name('job');
-
-
 Route::get('/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin.login-view');
 Route::post('/admin', [LoginController::class, 'adminLogin'])->name('admin.login');
 
-Route::get('/admin/register', [RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
-Route::post('/admin/register', [RegisterController::class,'createAdmin'])->name('admin.register');
-
-// Route::get('/admin/dashboard', function () {
-//     return view('jobs.index');
-// })->middleware('auth:admin');
+// Route::get('/admin/register', [RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
+// Route::post('/admin/register', [RegisterController::class,'createAdmin'])->name('admin.register');
