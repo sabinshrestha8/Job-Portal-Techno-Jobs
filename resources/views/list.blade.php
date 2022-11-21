@@ -3,7 +3,7 @@
 @section('content')
 <div class="background-home">
 	<div class="container d-flex align-items-center justify-content-center">
-		<h2 class="text-white fw-bold display-5 mt-2">It's time to start living the life we've imagined.</h2>
+		<h2 class="text-white fw-bold display-5 mt-2 user-select-none">It's time to start living the life we've imagined.</h2>
 	</div>
 </div>
 <div class="container">
@@ -18,7 +18,7 @@
             <span class="avatar avatar-text rounded-3 me-4 mb-2" style="background:{{ get_bg_color() }}">{{ get_avatar_text($job->title) }}</span>
             <div class="row flex-fill">
               <div class="col-sm-5">
-                <h4 class="h5">{{ $job->title }}</h4>
+                <h4 class="h5"><a href="{{ url('/jobs') . '/' . $job->id}}" class="text-decoration-none link-secondary fw-bold">{{ $job->title }}</a></h4>
                 <span class="badge bg-secondary">{{ $job->location }}</span> <span class="badge bg-success">Rs {{ $job->salary_range }}</span>
               </div>
               <div class="col-sm-4 py-2">
@@ -28,7 +28,7 @@
               </div>
               <div class="col-sm-3 text-lg-end">
                 @if (auth()->user())
-                  <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary stretched-link" style="width:50%">
+                  <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary" style="width:50%">
                     @php
                     $applicationUserIds = [];
                     @endphp
@@ -48,7 +48,7 @@
                     @endif
                   </a>
                 @else
-                  <a href="{{ route('login') }}" class="btn btn-primary stretched-link" style="width:50%">Apply</a>
+                  <a href="{{ route('login') }}" class="btn btn-primary" style="width:50%">Apply</a>
                 @endif
                 <h5 class="text-danger mt-3 mb-0 small"><span class="text-muted">Expires at: </span>{{ date('d M, Y', strtotime($job->expires_at)) }}</h5>
               </div>
