@@ -3,10 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +21,14 @@ use App\Http\Controllers\Auth\RegisterController;
 //     return view('welcome');
 // });
 
-Route::controller(ApplicationController::class)->prefix('/jobs')->middleware('auth')->group(function() {
+Route::controller(ApplicationController::class)->prefix('/jobs')->middleware('auth')->group(function () {
     Route::get('/{id}/apply', 'create')->name('jobs.apply');
     Route::post('/apply', 'store')->name('jobs.store.apply');
 });
 
 Route::get('/', [JobController::class, 'index']);
 
-Route::resource('jobs', JobController::class);
+Route::resource('jobs', JobController::class)->middleware('auth');
 
 Route::resource('/admin/jobs', JobController::class)->middleware('auth:admin');
 
@@ -41,3 +39,7 @@ Route::post('/admin', [LoginController::class, 'adminLogin'])->name('admin.login
 
 // Route::get('/admin/register', [RegisterController::class,'showAdminRegisterForm'])->name('admin.register-view');
 // Route::post('/admin/register', [RegisterController::class,'createAdmin'])->name('admin.register');
+
+Route::get('/admin/jobs/{id}/applications', [ApplicationController::class, 'index'])->name('admin.application-view')->middleware('auth:admin');
+
+Route::get('/search', [JobController::class, 'search'])->name('jobs.search');
