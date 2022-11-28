@@ -31,11 +31,6 @@
 
                     {{ $job->description }}
                 </p>
-                <p>
-                    If you’re a dreamer, gather up your portfolio and show us
-                    your vision. Garmin is adding one more enthusiastic
-                    individual to our in-house Communications expert team.
-                </p>
                 <h4>Qualification</h4>
                 <p>
                     Minimum of 5 years creative experience in a graphic design
@@ -92,19 +87,6 @@
                         equipment such as bulldozer, excavators, rollers, and
                         front-end loaders. Strongly prefer candidates with High
                         School Diploma
-                    </li>
-                </ul>
-                <h4>Benefits</h4>
-                <ul>
-                    <li>
-                        <i class="ti-check-box"></i>Must have minimum of 3 years
-                        experience running, maneuvering, driving, and navigating
-                        equipment such as bulldozer, excavators, rollers, and
-                        front-end loaders.
-                    </li>
-                    <li>
-                        <i class="ti-check-box"></i>Strongly prefer candidates
-                        with High School Diploma
                     </li>
                 </ul>
                 <div class="col-sm-4">

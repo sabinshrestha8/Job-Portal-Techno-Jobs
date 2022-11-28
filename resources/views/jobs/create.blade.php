@@ -7,8 +7,8 @@
         </div>
         <div class="row mb-5">
             <div class="col-lg-5 mx-auto">
-                <div class="card mt-1 mx-auto p-1 bg-light">
-                    <div class="card-body bg-light">
+                <div class="card mt-1 mx-auto p-1 bg-white">
+                    <div class="card-body bg-white">
                         <div class="container">
                             <form id="jobs-create-form" method="post" action="{{ route('jobs.store') }}">
                                 @csrf
