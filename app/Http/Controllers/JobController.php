@@ -16,12 +16,14 @@ class JobController extends Controller
     {
         $jobs = Job::latest()->paginate(6);
 
+        $applications = Job::all('applications');
+
         if (!request()->is('admin/*')) {
-            return view('list', compact('jobs'))
+            return view('list', compact('jobs', 'applications'))
                 ->with('i', (request()->input('page', 1) - 1) * 6);
         }
 
-        return view('jobs.index', compact('jobs'))
+        return view('jobs.index', compact('jobs', 'applications'))
             ->with('i', (request()->input('page', 1) - 1) * 6);
     }
 
@@ -134,5 +136,14 @@ class JobController extends Controller
         session()->flash('errorMsg', 'Job deleted successfully');
 
         return redirect(route('jobs.index'));
+    }
+
+    public function search(Request $request) {
+        $search = $request->input('name');
+
+        $jobs = Job::Where('title', 'LIKE', "%{$search}%")
+            ->orWhereJsonContains('tags', ucfirst(strtolower("$search")))->get();
+
+        return view('list', compact('jobs'));
     }
 }
