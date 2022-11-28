@@ -87,6 +87,18 @@ class ApplicationController extends Controller
 
         session()->flash('msg', 'Application submitted successfully');
 
-        return redirect(url('/'));
+        return redirect(url('/jobs'));
+    }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function index($id) {
+        $job = Job::findOrFail($id);
+
+        return view('application-show', compact('job'))
+            ->with('i', (request()->input('page', 1) - 1) * 6);
     }
 }

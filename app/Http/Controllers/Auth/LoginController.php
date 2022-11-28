@@ -57,6 +57,9 @@ class LoginController extends Controller
             return redirect()->intended('/admin/jobs');
         }
 
-        return back()->withInput($request->only('email', 'remember'));
+        return $this->sendFailedLoginResponse($request);
+
+        // return back()->withInput($request->only('email', 'remember'));
+
     }
 }
