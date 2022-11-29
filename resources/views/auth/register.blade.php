@@ -82,7 +82,7 @@
 <div class="container w-75 my-5 d-flex justify-content-center">
     <div class="card w-50 p-4 pb-2">
         <fieldset class="pb-2">
-            <h2 class="fw-bold pb-2 text-primary">{{ $title ?? '' }} {{ __(strtoupper('Create an account')) }}</h2>
+            <h2 class="fw-bold pb-2 text-primary">{{ isset($title) ? strtoupper($title) : '' }} {{ __(strtoupper('Create an account')) }}</h2>
         </fieldset>
 
         @isset($route)
