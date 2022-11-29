@@ -91,27 +91,33 @@
                 </ul>
                 <div class="col-sm-4">
                     @if (auth()->user())
-                    <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary mt-2 text-start" style="width:80%">
-                        @php
-                        $applicationUserIds = [];
-                        @endphp
+                        @if(strtotime($job->expires_at) >= time())
+                            <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary mt-2 text-start" style="width:90%">
+                                @php
+                                $applicationUserIds = [];
+                                @endphp
 
-                        @isset($job->applications)
-                            @foreach ($job->applications as $application)
-                            @php
-                                array_push($applicationUserIds, $application['user_id']);
-                            @endphp
-                            @endforeach
-                        @endisset
+                                @isset($job->applications)
+                                    @foreach ($job->applications as $application)
+                                    @php
+                                        array_push($applicationUserIds, $application['user_id']);
+                                    @endphp
+                                    @endforeach
+                                @endisset
 
-                        @if(in_array(auth()->user()->id, $applicationUserIds))
-                        {{ 'Re-apply fro this Job Now' }}
+                                @if(in_array(auth()->user()->id, $applicationUserIds))
+                                {{ 'Re-apply for this Job Now' }}
+                                @else
+                                {{ 'Apply for this Job Now' }}
+                                @endif
+                            </a>
                         @else
-                        {{ 'Apply for this Job Now' }}
                         @endif
-                    </a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-primary mt-2 text-start" style="width:80%">Apply for this Job Now</a>
+                        @if (strtotime($job->expires_at) >= time())
+                            <a href="{{ route('login') }}" class="btn btn-primary mt-2 text-start" style="width:90%">Apply for this Job Now</a>
+                        @else
+                        @endif
                     @endif
                 </div>
             </div>

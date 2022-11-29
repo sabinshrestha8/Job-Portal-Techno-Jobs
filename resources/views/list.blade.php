@@ -38,7 +38,8 @@
               </div>
               <div class="col-sm-3 text-lg-end">
                 @if (auth()->user())
-                  <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary" style="width:50%">
+                  @if(strtotime($job->expires_at) >= time())
+                    <a href="{{ route('jobs.apply', $job->id) }}" class="btn btn-primary" style="width:50%">
                     @php
                     $applicationUserIds = [];
                     @endphp
@@ -57,15 +58,20 @@
                       {{ 'Apply' }}
                     @endif
                   </a>
+                  @else
+                  @endif
                 @else
-                  <a href="{{ route('login') }}" class="btn btn-primary" style="width:50%">Apply</a>
+                  @if(strtotime($job->expires_at) >= time())
+                    <a href="{{ route('login') }}" class="btn btn-primary" style="width:50%">Apply</a>
+                  @else
+                  @endif
                 @endif
                 <h5 class="text-danger mt-3 mb-0 small">
                     @if(strtotime($job->expires_at) >= time())
                         <span class="text-muted">Expires at: </span>
                         {{ date('d M, Y', strtotime($job->expires_at)) }}
                     @else
-                       <p class="ml-3">{{ "Expired" }}</p>
+                       {{ "Expired" }}
                     @endif
                 </h5>
               </div>
