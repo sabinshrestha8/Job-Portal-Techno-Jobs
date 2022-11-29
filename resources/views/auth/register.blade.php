@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+{{-- <div class="container">
     <div class="row justify-content-center py-5">
         <div class="col-md-6">
             <div class="card">
@@ -76,6 +76,60 @@
                 </div>
             </div>
         </div>
+    </div>
+</div> --}}
+
+<div class="container w-75 my-5 d-flex justify-content-center">
+    <div class="card w-50 p-4 pb-2">
+        <fieldset class="pb-2">
+            <h2 class="fw-bold pb-2 text-primary">{{ $title ?? '' }} {{ __(strtoupper('Create an account')) }}</h2>
+        </fieldset>
+
+        @isset($route)
+            <form method="POST" action="{{ $route }}">
+        @else
+            <form method="POST" action="{{ route('register') }}">
+        @endisset
+            @csrf
+            <div class="form-outline mb-4">
+                <label class="form-label" for="name">Name</label>
+                <input type="email" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"/>
+
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="email">Email address</label>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"/>
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" name="password" value="{{ old('password') }}" class="form-control @error('email') is-invalid @enderror"/>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="password-confirm">Confirm Password</label>
+                <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" class="form-control"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4" style="width:100%">{{ __('Register now') }}</button>
+        </form>
     </div>
 </div>
 @endsection
