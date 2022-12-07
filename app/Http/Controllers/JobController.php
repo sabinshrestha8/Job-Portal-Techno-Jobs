@@ -107,8 +107,11 @@ class JobController extends Controller
     {
         $validatedUpdateUser = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required',
             'company' => 'required|string',
+            'description' => 'required',
+            'salary_range' => 'required|regex:/^[0-9]{3,5}[\s]?[-][\s]?[0-9]{3,5}$/u',
+            'location' => 'required|string',
+            'tags' => 'required|string',
             'expires_at' => 'required|date'
         ]);
 
